@@ -62,8 +62,12 @@ function splitHTMLText() {
           // Check if the key is allowed
           if (allowedKeys.includes(key)) {
             // Decode HTML entities
-            value = value.replace(/&#(\d+);/g, function(match, dec) {
-              return String.fromCharCode(dec);
+            value = value.replace(/&#(\d+);|&quot;/g, function(match, dec) {
+              if (dec) {
+                return String.fromCharCode(dec);
+              } else {
+                return '"';
+              }
             });
 
             // Remove HTML tags
