@@ -61,6 +61,14 @@ function splitHTMLText() {
 
           // Check if the key is allowed
           if (allowedKeys.includes(key)) {
+            // Decode HTML entities
+            value = value.replace(/&#(\d+);/g, function(match, dec) {
+              return String.fromCharCode(dec);
+            });
+
+            // Remove HTML tags
+            value = value.replace(/<[^>]+>/g, '');
+
             // Create key-value pair
             var keyValue = {};
             keyValue[key] = value;
